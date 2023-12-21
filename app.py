@@ -26,11 +26,11 @@ with open(app.config['LABELS_FILE'], 'r') as file:
 
 def predict_soil_type(image):
     img = Image.open(image).convert("RGB")
-    img = img.resize((224, 224))
+    img = img.resize((400, 400))
     img_array = np.asarray(img)
     img_array = np.expand_dims(img_array, axis=0)
     normalized_image_array = (img_array.astype(np.float32) / 127.5) - 1
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+    data = np.ndarray(shape=(1, 400, 400, 3), dtype=np.float32)
     data[0] = normalized_image_array
     predictions = model.predict(data)
     index = np.argmax(predictions)
